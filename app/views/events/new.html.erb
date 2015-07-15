@@ -1,0 +1,12 @@
+<h1>New Event</h1>
+<div class="container">
+  <%= form_for @event do |f| %>
+  <%= f.label :event_date %>
+  <%= f.date_select :event_date %>
+  <br>
+  <%= f.label :source_type %>
+  <%= f.collection_select :source_id, Source.all, :id, :name, :prompt => "Select your source" %>
+  <br>
+  <%= f.submit %>
+  <% end %>
+</div>

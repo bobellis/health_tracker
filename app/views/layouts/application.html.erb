@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HealthTracker</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+        <ul class="nav navbar-nav">
+          <% if current_user %>
+          <li class="pull-left">You are logged in as <%= current_user.email %></li>
+          <li class="pull-right"> <%= link_to("Log Out", destroy_user_session_path, :method => :delete) %> </li>
+          <% else %>
+          <li class="pull-right"> <%= link_to "Login", new_user_session_path %></li>
+          <li class="pull-right">  <%= link_to "Sign Up", new_user_registration_path %></li>
+          <% end %>
+        </ul>
+  </nav>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+<%= yield %>
+
+</body>
+</html>

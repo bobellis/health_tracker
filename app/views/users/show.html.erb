@@ -1,0 +1,29 @@
+<div class="container" id="source-container">
+<h1>Sources</h1>
+<% @sources.each do |source|%>
+<ul>
+<%= source.name %>
+<%= source.calories %>
+<%= source.source_type %>
+<%= link_to "Delete", source_path(source), :method => :delete, :class => "btn btn-danger btn-xs" %>
+<%= link_to "Quick Add", new_event_path, :class => "btn btn-primary btn-xs" %>
+</ul>
+<% end %>
+</div>
+<div class="container" id="event-container">
+
+<h1>Events</h1>
+<% @events.each do |event| %>
+<ul>
+
+<%= event.event_date %>
+<%= @sources.find(event.source_id).name %>
+<%= @sources.find(event.source_id).calories %>
+<%= link_to "Delete", event_path(event), :method => :delete, :class => "btn btn-danger btn-xs" %>
+<% end %>
+
+</ul>
+</div>
+<%= link_to "New Source", new_source_path %>
+<br>
+<%= link_to "New Event", new_event_path %>
