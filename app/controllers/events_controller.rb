@@ -24,6 +24,8 @@ class EventsController < ApplicationController
         redirect_to '/'
       end
 
+      def quickadd
+
 
   private
     def event_params
