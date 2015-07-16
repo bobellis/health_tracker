@@ -1,0 +1,11 @@
+<%= form_for @event do |f| %>
+<%= f.label :event_date %>
+<%= f.date_select :event_date %>
+<br>
+<%= f.label :source_type %>
+<%= f.collection_select :source_id, Source.all, :id, :name, :prompt => "Select your source" %>
+<br>
+<%= f.submit %>
+<% end %>
+<br>
+<%= link_to "Cancel", "/", :class => "btn btn-warning btn-xs"%>

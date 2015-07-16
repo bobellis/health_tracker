@@ -1,0 +1,13 @@
+<%= form_for @source do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<br>
+<%= f.label :source_type %>
+<%= f.text_field :source_type %>
+<br>
+<%= f.label :calories %>
+<%= f.text_field :calories %>
+<br>
+<%= f.submit %>
+<% end %>
+<%= link_to "Cancel", "/", :class => "btn btn-warning btn-xs"%>

@@ -1,29 +1,56 @@
-<div class="container" id="source-container">
-<h1>Sources</h1>
-<% @sources.each do |source|%>
-<ul>
-<%= source.name %>
-<%= source.calories %>
-<%= source.source_type %>
-<%= link_to "Delete", source_path(source), :method => :delete, :class => "btn btn-danger btn-xs" %>
-<%= link_to "Quick Add", new_event_path, :class => "btn btn-primary btn-xs" %>
-</ul>
-<% end %>
+<div class="container-fluid">
+  <div class="container" id="source-container">
+    <h1>Sources</h1>
+    <%= form_tag "users#show" do %>
+    <p>
+      <%= text_field_tag :search %>
+      <%= submit_tag "Search" %>
+    </p>
+    <% end %>
+    <table class="table table-condensed">
+      <tr>
+        <th> <%= sortable "name" %> </th>
+        <th> <%= sortable "calories" %> </th>
+        <th> <%= sortable "source_type" %> </th>
+        <th> Options </th>
+      </tr>
+      <% for source in @sources %>
+      <tr>
+        <td><%= source.name %></td>
+        <td><%= source.calories %></td>
+        <td><%= source.source_type %></td>
+        <td>
+          <%= link_to "Delete", source_path(source), :method => :delete, :class => "btn btn-danger btn-xs" %>
+          <%= link_to "Quick Add", new_event_path, :class => "btn btn-primary btn-xs" %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+
+  </div>
+  <% @total = 0 %>
+    <div class="container" id="event-container">
+      <h1>Events</h1>
+        <% @events.each do |event| %>
+          <ul>
+            <li><%= event.event_date %>
+              <%= @sources.find(event.source_id).name %>
+              <% if @sources.find(event.source_id).source_type === "exercise" %>
+                <% @total = @total - (@sources.find(event.source_id).calories) %>
+              <% else %>
+                <% @total = @total + (@sources.find(event.source_id).calories) %>
+              <% end %>
+               <%= @sources.find(event.source_id).calories %>
+              <%= link_to "Delete", event_path(event), :method => :delete, :class => "btn btn-danger btn-xs" %>
+            </li>
+          </ul>
+        <% end %>
+    </div>
 </div>
-<div class="container" id="event-container">
-
-<h1>Events</h1>
-<% @events.each do |event| %>
-<ul>
-
-<%= event.event_date %>
-<%= @sources.find(event.source_id).name %>
-<%= @sources.find(event.source_id).calories %>
-<%= link_to "Delete", event_path(event), :method => :delete, :class => "btn btn-danger btn-xs" %>
-<% end %>
-
-</ul>
+<div class="container">
+  <% if @total > 0 %>
+  <h1>You have a surplus equal to <%= @total %> calories</h1>
+  <% else %>
+  <h1>You have a burned a total of <%= @total.abs %> calories</h1>
+  <% end %>
 </div>
-<%= link_to "New Source", new_source_path %>
-<br>
-<%= link_to "New Event", new_event_path %>

@@ -22,5 +22,17 @@
   <p class="alert"><%= alert %></p>
 <%= yield %>
 
+<div class="container">
+  <nav class="navbar navbar-defaul navbar-fixed-bottom">
+    <ul class="nav navbar-nav">
+      <li class="pull-left"><%= link_to "New Source", new_source_path, id: "new_source", remote: true %></li>
+      <li class="pull-left"><%= link_to "New Event", new_event_path, id: "new_event", remote: true %></li>
+
+    </ul>
+
+  </nav>
+
+</div>
+
 </body>
 </html>
